@@ -1,0 +1,537 @@
+Flat File Systems vs. Relational Databases
+1. Structure
+Flat File Systems
+
+Store data in a single table-like file (e.g., CSV, TXT, JSON).
+
+Typically consist of rows and columns without enforced data types.
+
+No built-in schema or strict structure; structure is often implied rather than enforced.
+
+Relational Databases
+
+Store data across multiple related tables.
+
+Follow a defined schema with enforced data types and constraints.
+
+Use Structured Query Language (SQL) to manage and query data.
+
+2. Data Redundancy
+Flat File Systems
+
+High redundancy because each file stands alone.
+
+Repeated data is common as there is no mechanism to reduce duplication.
+
+Updates require changes to multiple files, increasing inconsistency risk.
+
+Relational Databases
+
+Low redundancy due to normalization and relationships.
+
+Data is stored once and referenced via keys.
+
+Helps maintain consistency and reduces storage duplication.
+
+3. Relationships
+Flat File Systems
+
+No built-in relationships between files.
+
+Any relationship must be handled manually by the application.
+
+Difficult to maintain connections across datasets as size grows.
+
+Relational Databases
+
+Designed specifically to model relationships (one-to-one, one-to-many, many-to-many).
+
+Use primary keys and foreign keys to enforce relational integrity.
+
+Allow complex queries involving multiple related tables.
+
+4. Example Usage
+Flat File Systems
+
+Configuration files (INI, JSON, YAML).
+
+Simple datasets for spreadsheet tools (CSV files).
+
+Small applications with minimal data storage needs.
+
+Logging systems or simple archival records.
+
+Relational Databases
+
+Business applications (ERP, CRM, HR systems).
+
+E-commerce platforms, banking systems.
+
+Any system requiring complex queries, data integrity, or multiple related records.
+
+Large-scale reporting and analytics (with systems like PostgreSQL, MySQL, SQL Server).
+
+5. Drawbacks
+Flat File Systems
+
+Poor scalability as data volume grows.
+
+Hard to maintain data consistency.
+
+No concurrency control—risk of overwriting data during simultaneous access.
+
+Weak security and limited query capabilities.
+
+Relational Databases
+
+More complex to set up and maintain.
+
+Require specialized knowledge (SQL, schema design).
+
+Can be slower than flat files for extremely simple, read-only tasks.
+
+May require more system resources (memory, CPU) than flat files.
+
+Advantages of Using a DBM
+
+                          ┌────────────────────────┐
+                          │   Advantages of DBMS   │
+                          └────────────┬───────────┘
+                                       │
+     ┌─────────────────────────────────┼──────────────────────────────────┐
+     │                                 │                                  │
+┌────▼─────┐                    ┌──────▼──────┐                    ┌──────▼──────┐
+│ Security │                    │  Integrity   │                    │    Backup    │
+└────┬─────┘                    └──────┬──────┘                    └──────┬──────┘
+     │                                 │                                  │
+     │  🔒 Controls access using       │  ✔ Ensures accuracy and          │  💾 Automated or scheduled
+     │     authentication & roles      │    consistency of data           │     backups protect data
+     │                                 │                                  │     from loss
+     │                                 │                                  │
+     └────────────────────────────────────────────────────────────────────┘
+
+     ┌─────────────────────────────────┼──────────────────────────────────┐
+     │                                 │                                  │
+┌────▼────────┐                 ┌──────▼────────┐                 ┌──────▼────────┐
+│ Redundancy  │                 │ Concurrency   │                 │ Data Sharing   │
+└────┬────────┘                 └──────┬────────┘                 └──────┬────────┘
+     │                                 │                                  │
+     │  📉 Minimizes duplicate         │  🔄 Allows multiple users         │  🤝 Multiple users or
+     │     data through                │     to access data at the         │     applications can access
+     │     normalization               │     same time safely              │     the same data securely
+     │                                 │                                  │
+     └────────────────────────────────────────────────────────────────────┘
+
+
+
+Roles in a Database System
+1. System Analyst
+
+Acts as the link between users and the technical team.
+
+Studies the organisation’s requirements and determines what the database system must do.
+
+Produces specifications, workflows, and system requirements that guide the designers and developers.
+
+2. Database Designer
+
+Responsible for designing the structure of the database.
+
+Creates conceptual models (e.g., ER diagrams), logical models, and physical schemas.
+
+Ensures the database is efficient, scalable, and supports required relationships and constraints.
+
+Decides what tables, fields, data types, keys, and relationships are needed.
+
+3. Database Developer
+
+Builds the database based on the designer’s schema.
+
+Writes SQL scripts for creating tables, views, indexes, stored procedures, triggers, and functions.
+
+Optimises queries and ensures fast performance.
+
+Works closely with application developers and the DBA.
+
+4. DBA (Database Administrator)
+
+Manages the database on an ongoing basis.
+
+Responsible for installation, configuration, user access, backups, security, and performance tuning.
+
+Ensures availability, prevents data loss, and maintains the health of the database system.
+
+Handles monitoring, updates, and troubleshooting.
+
+5. Application Developer
+
+Builds the software (web, desktop, or mobile apps) that interacts with the database.
+
+Writes code using APIs, ORMs (Object-Relational Mappers), or SQL queries.
+
+Ensures the application retrieves, inserts, and updates data correctly and efficiently.
+
+Works with the database developer to integrate features and maintain security.
+
+6. BI (Business Intelligence) Developer
+
+Focuses on turning database data into insights for decision-making.
+
+Creates dashboards, reports, KPIs, and data visualisations.
+
+Works with data warehouses, ETL pipelines, and analytical databases.
+
+Ensures data is accurate, transformed properly, and easy for business users to understand.
+
+
+Types of Databases
+Relational vs Non-Relational Databases
+Relational Databases (SQL)
+
+Store data in tables with rows and columns.
+
+Use schema-based structure (fixed data types, constraints).
+
+Support relationships using primary keys & foreign keys.
+
+Use SQL for querying.
+
+Examples: SQL Server, MySQL, PostgreSQL, Oracle
+Good for: Financial systems, ERP, CRM, inventory, structured data.
+
+
+Non-Relational Databases (NoSQL)
+
+Schema-flexible or schema-less.
+
+Store data in various forms:
+
+Document (MongoDB)
+
+Columnar (Cassandra)
+
+Key-value (Redis)
+
+Graph (Neo4j)
+
+Designed for large-scale, distributed data.
+
+Examples:
+
+MongoDB (document JSON-like storage)
+
+Cassandra (column family, highly distributed)
+
+Good for: Big data, real-time analytics, flexible or rapidly changing data structures.
+
+Centralized vs Distributed vs Cloud Databases
+
+Centralized Database
+
+Stored on a single server/location.
+
+Users connect over a network to one central system.
+
+Pros: Easier to secure and maintain.
+Cons: Single point of failure.
+
+
+Distributed Database
+
+Data is spread across multiple servers/locations.
+
+Appears as one logical database to users.
+
+Pros: High availability, faster local access.
+Cons: Complex synchronization and consistency management.
+
+
+Cloud Databases
+
+Hosted on cloud platforms such as AWS, Azure, or Google Cloud.
+
+Can be fully managed (DBaaS) or self-managed on cloud VMs.
+
+Pros: Auto-scaling, backups, global access, reduced maintenance.
+Cons: Ongoing cost, reliance on internet and cloud provider.
+
+Use Case Examples
+
+
+| Scenario                            | Best Choice                         |
+| ----------------------------------- | ----------------------------------- |
+| Banking, payroll, transactions      | **Relational DB**                   |
+| Social media feeds, IoT data        | **NoSQL**                           |
+| Global e-commerce website           | **Distributed DB**                  |
+| Small business internal system      | **Centralized DB**                  |
+| Modern web apps needing scalability | **Cloud DB (e.g., RDS, Azure SQL)** |
+
+
+
+Cloud Storage and Databases
+
+What is Cloud Storage?
+
+Cloud storage services (e.g., OneDrive, Google Drive, S3) store files like documents, images, backups.
+
+Not a database — more like a remote file system.
+
+How Does It Relate to Databases?
+
+Databases can store their backups in cloud storage.
+
+Databases can run inside the cloud and store data on cloud-backed disks.
+
+Some cloud storage systems (e.g., AWS S3 + Athena) allow querying stored data like a database.
+
+
+
+Advantages of Cloud Databases
+
+☁️ Scalability: Increase resources automatically.
+
+🔒 Security: Built-in encryption, identity management.
+
+🛠️ Managed services: Backups, patching, monitoring handled by provider.
+
+🌍 Global availability: Deploy anywhere.
+
+💰 Pay-as-you-go: No hardware cost.
+
+Disadvantages
+
+🌐 Internet dependency: No connection = no access.
+
+💸 Running cost: Monthly fees can become high.
+
+🔄 Vendor lock-in: Hard to switch providers.
+
+⚙️ Limited control: Hardware-level tuning not accessible.
+
+
+Database Engines and Languages
+What is a Database Engine?
+
+The core database software that stores, processes, and retrieves data.
+
+Handles indexing, transactions, concurrency, and query execution.
+
+Examples of Database Engines
+
+Microsoft SQL Server
+
+MySQL / MariaDB
+
+Oracle Database
+
+PostgreSQL
+
+
+
+Languages Used
+
+| Engine     | Language                    |
+| ---------- | --------------------------- |
+| SQL Server | T-SQL                       |
+| Oracle     | PL/SQL                      |
+| PostgreSQL | PL/pgSQL (plus ANSI SQL)    |
+| MySQL      | ANSI SQL + MySQL extensions |
+
+
+
+
+Is There a Relationship Between Engine and Language?
+
+Yes.
+Each engine uses SQL but includes proprietary extensions for stored procedures, triggers, and functions.
+
+Can One SQL Language Work Across Engines?
+
+Basic SQL (SELECT, INSERT, UPDATE, DELETE) works across most engines.
+
+Advanced features do not transfer easily (procedures, triggers, data types, functions).
+
+
+
+Can We Transfer a Database Between Engines?
+Is It Possible?
+
+✔ Yes, it is possible to migrate between engines (e.g., SQL Server → MySQL, Oracle → PostgreSQL).
+Tools exist such as AWS Schema Conversion Tool, Azure DMS, or export/import pipelines.
+
+
+
+Challenges of Migration
+
+Different data types (e.g., NUMBER vs INT vs NUMERIC).
+
+Stored procedures/functions must be rewritten into the new SQL dialect.
+
+Triggers and constraints may not translate 1:1.
+
+Indexes and performance tuning differ by engine.
+
+Application code might need updates.
+
+
+
+What Should We Consider Before Transferring?
+
+Data types (e.g., NVARCHAR, VARCHAR2, TEXT).
+
+Stored procedures, functions, triggers.
+
+Auto-increment vs sequences.
+
+Views, indexing strategies.
+
+Collation and character sets.
+
+Transaction isolation levels.
+
+
+Logical vs Physical Schema
+
+Logical Schema
+
+High-level description of the structure of the data.
+
+Shows entities, attributes, and relationships.
+
+Technology-independent.
+
+Example (Logical Entity – Student):
+
+Entity: Student
+
+StudentID
+
+FirstName
+
+LastName
+
+Email
+
+CourseID (relationship to Course)
+
+
+
+Physical Schema
+
+
+Actual database implementation details.
+
+Includes data types, indexes, constraints, storage details.
+
+Example (Physical Schema – Student Table SQL):
+
+CREATE TABLE Student (
+    StudentID INT PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE,
+    CourseID INT,
+    FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
+);
+
+
+Differences
+
+
+| Logical Schema                      | Physical Schema                             |
+| ----------------------------------- | ------------------------------------------- |
+| Conceptual, abstract                | Concrete, implemented                       |
+| Focuses on entities & relationships | Focuses on tables, columns, storage         |
+| Tech-agnostic                       | Platform-specific (SQL Server, MySQL, etc.) |
+
+
+Why Is Understanding Both Important?
+
+Logical schema ensures correct data modelling.
+
+Physical schema ensures efficient storage and performance.
+
+Helps separate design from implementation, making systems maintainable.
+
+
+Logical vs Physical Schema Example (Student Entity)
+
+✅ 1. Logical Schema Example (Conceptual View)
+
+The logical schema shows the structure and relationships without technical details.
+
+Entity: Student
+
+StudentID
+
+FirstName
+
+LastName
+
+Email
+
+DateOfBirth
+
+CourseID → relates to the Course entity (many students per one course)
+
+Logical Diagram (Simplified)
+STUDENT (Entity)
+ ├── StudentID (PK)
+ ├── FirstName
+ ├── LastName
+ ├── Email
+ ├── DateOfBirth
+ └── CourseID (FK → Course)
+
+
+Characteristics:
+
+No data types
+
+No storage details
+
+No indexes
+
+Only entities, attributes, and relationships
+
+
+
+
+
+2. Physical Schema Example (Implemented in SQL)
+
+The physical schema translates the logical design into an actual database table with data types, constraints, and storage details.
+
+SQL Table Definition
+CREATE TABLE Student (
+    StudentID INT PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE,
+    DateOfBirth DATE,
+    CourseID INT,
+    FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
+);
+
+
+
+Characteristics:
+
+Shows data types (INT, VARCHAR, DATE)
+
+Enforces constraints (PRIMARY KEY, UNIQUE, FOREIGN KEY)
+
+Includes NOT NULL rules
+
+Reflects real engine-specific implementation
+
+
+Summary Table
+
+
+| Feature  | Logical Schema                      | Physical Schema                          |
+| -------- | ----------------------------------- | ---------------------------------------- |
+| Purpose  | Conceptual data model               | Actual implementation                    |
+| Level    | High-level                          | Technical, engine-specific               |
+| Includes | Entities, attributes, relationships | Tables, columns, data types, constraints |
+| Example  | Student with attributes             | SQL CREATE TABLE Student                 |
