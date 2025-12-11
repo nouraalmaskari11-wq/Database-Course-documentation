@@ -1,5 +1,5 @@
-CREATE DATABASE companyDB;
-USE companyDB;
+CREATE DATABASE companyDataBase;
+USE companyDataBase;
 
 
 CREATE TABLE Employee (
@@ -23,7 +23,7 @@ CREATE TABLE Department (
 
 
 ALTER TABLE Employee
-ADD Dnum INT NOT NULL,
+ADD Dnum INT,
 FOREIGN KEY (Dnum) REFERENCES Department(Dnum)
 ;
 
@@ -46,10 +46,10 @@ CREATE TABLE Project (
 
 
 CREATE TABLE EMPDependent (
-    DepID INT PRIMARY KEY IDENTITY(1,1),
+   DependentName nvarchar(50),
     EmpSSN INT NOT NULL,
     Dnum INT NOT NULL,
-    Gender BIT DEFAULT 0,
+    DependentGender BIT DEFAULT 0,
     DBirthdate DATE,
     FOREIGN KEY (EmpSSN) REFERENCES Employee(SSN),
     FOREIGN KEY (Dnum) REFERENCES Department(Dnum)
@@ -68,11 +68,11 @@ CREATE TABLE WorkingHours (
 
 INSERT INTO Employee(FirstName, LastName, Birthdate, Gender)
 VALUES
-('Ahmed', 'Ali', '1985-04-12', 1),
-('Omar', 'Hassan', '1990-09-23', 0),
-('Fatima', 'Salim', '1978-01-30', 1),
-('Yusuf', 'Khalid', '1988-06-18', 0),
-('Layla', 'Mahmoud', '1995-12-05', 1);
+('Ahmed', 'AlBusaidi', '1985-04-12', 1),
+('Omar', 'AlKhalili', '1990-09-23', 0),
+('Fatima', 'AlHarthy', '1978-01-30', 1),
+('Yusuf', 'AlRawahi', '1988-06-18', 0),
+('Layla', 'AlLawati', '1995-12-05', 1);
 
 INSERT INTO Department (Dname, HiringDate, EmpSSN)
 VALUES
@@ -98,13 +98,13 @@ VALUES
 ('Marketing Campaign', 'Main Office', 'Muscat', 4),
 ('Logistics Optimization', 'Warehouse', 'Barka', 5);
 
-INSERT INTO EMPDependent (EmpSSN, Dnum, Gender, DBirthdate)
+INSERT INTO EMPDependent (DependentName, EmpSSN, Dnum, DependentGender, DBirthdate)
 VALUES
-(1, 1, 0, '2010-06-15'),
-(2, 2, 1, '2012-11-03'),
-(3, 3, 0, '2015-09-25'),
-(4, 4, 1, '2018-04-12'),
-(5, 5, 0, '2016-07-30');
+('Sara', 1, 1, 1, '2010-05-12'),
+('Omar', 2, 2, 0, '2012-09-23'),
+('Huda', 3, 3, 1, '2015-11-15'),
+('Khalid', 4, 4, 0, '2017-04-08'),
+('Aisha', 5, 5, 1, '2018-12-19');
 
 INSERT INTO WorkingHours (EmpSSN, Pnum, NumWhours)
 VALUES
