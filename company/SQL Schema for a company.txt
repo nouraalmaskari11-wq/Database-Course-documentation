@@ -1,0 +1,128 @@
+CREATE DATABASE companyDB;
+USE companyDB;
+
+
+CREATE TABLE Employee (
+    SSN INT PRIMARY KEY IDENTITY(1,1),
+    FirstName NVARCHAR(50) NOT NULL,
+    LastName NVARCHAR(50) NOT NULL,
+    Birthdate DATE,
+    Gender BIT DEFAULT 0,
+    SuperID INT,
+    FOREIGN KEY (SuperID) REFERENCES Employee(SSN)
+);
+
+
+CREATE TABLE Department (
+    Dnum INT PRIMARY KEY IDENTITY(1,1),
+    Dname NVARCHAR(50) NOT NULL,
+    HiringDate DATE,
+    EmpSSN INT,
+    FOREIGN KEY (EmpSSN) REFERENCES Employee(SSN)
+);
+
+
+ALTER TABLE Employee
+ADD Dnum INT NOT NULL,
+FOREIGN KEY (Dnum) REFERENCES Department(Dnum)
+;
+
+CREATE TABLE DLocation (
+    Dnum INT NOT NULL,
+    Dlocation NVARCHAR(50) NOT NULL,
+    PRIMARY KEY (Dnum, Dlocation),
+    FOREIGN KEY (Dnum) REFERENCES Department(Dnum)
+);
+
+
+CREATE TABLE Project (
+    Pnum INT PRIMARY KEY IDENTITY(1,1),
+    Pname NVARCHAR(50) NOT NULL,
+    PLocation NVARCHAR(50),
+    City NVARCHAR(50),
+    Dnum INT NOT NULL,
+    FOREIGN KEY (Dnum) REFERENCES Department(Dnum)
+);
+
+
+CREATE TABLE EMPDependent (
+    DepID INT PRIMARY KEY IDENTITY(1,1),
+    EmpSSN INT NOT NULL,
+    Dnum INT NOT NULL,
+    Gender BIT DEFAULT 0,
+    DBirthdate DATE,
+    FOREIGN KEY (EmpSSN) REFERENCES Employee(SSN),
+    FOREIGN KEY (Dnum) REFERENCES Department(Dnum)
+);
+
+
+CREATE TABLE WorkingHours (
+    EmpSSN INT NOT NULL,
+    Pnum INT NOT NULL,
+    NumWhours DECIMAL(4,1),
+    PRIMARY KEY (EmpSSN, Pnum),
+    FOREIGN KEY (EmpSSN) REFERENCES Employee(SSN),
+    FOREIGN KEY (Pnum) REFERENCES Project(Pnum)
+);
+
+
+INSERT INTO Employee(FirstName, LastName, Birthdate, Gender)
+VALUES
+('Ahmed', 'Ali', '1985-04-12', 1),
+('Omar', 'Hassan', '1990-09-23', 0),
+('Fatima', 'Salim', '1978-01-30', 1),
+('Yusuf', 'Khalid', '1988-06-18', 0),
+('Layla', 'Mahmoud', '1995-12-05', 1);
+
+INSERT INTO Department (Dname, HiringDate, EmpSSN)
+VALUES
+('Human Resources', '2020-05-01', 1),
+('Finance', '2019-03-15', 2),
+('Information Technology', '2021-07-20', 3),
+('Marketing', '2022-02-10', 4),
+('Operations', '2018-11-25', 5);
+
+INSERT INTO DLocation (Dnum, Dlocation)
+VALUES
+(1, 'Building A'),
+(2, 'Building B'),
+(3, 'Building C'),
+(4, 'Building D'),
+(5, 'Headquarters');
+
+INSERT INTO Project (Pname, PLocation, City, Dnum)
+VALUES
+('Payroll System', 'Main Office', 'Muscat', 2),
+('Website Upgrade', 'Remote', 'Sohar', 3),
+('Recruitment Drive', 'Branch Office', 'Nizwa', 1),
+('Marketing Campaign', 'Main Office', 'Muscat', 4),
+('Logistics Optimization', 'Warehouse', 'Barka', 5);
+
+INSERT INTO EMPDependent (EmpSSN, Dnum, Gender, DBirthdate)
+VALUES
+(1, 1, 0, '2010-06-15'),
+(2, 2, 1, '2012-11-03'),
+(3, 3, 0, '2015-09-25'),
+(4, 4, 1, '2018-04-12'),
+(5, 5, 0, '2016-07-30');
+
+INSERT INTO WorkingHours (EmpSSN, Pnum, NumWhours)
+VALUES
+(1, 1, 40.0),
+(2, 2, 35.5),
+(3, 3, 42.0),
+(4, 4, 38.0),
+(5, 5, 45.0);
+
+
+select*from Employee;
+
+select*from Department;
+
+select*from DLocation;
+
+select*from Project;
+
+select*from EMPDependent;
+
+select*from WorkingHours;
