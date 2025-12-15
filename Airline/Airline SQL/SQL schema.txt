@@ -1,0 +1,153 @@
+CREATE DATABASE Airline;
+USE Airline;
+
+-- Airport
+CREATE TABLE airport (
+    airportID INT PRIMARY KEY IDENTITY(1000,1),
+    airportname VARCHAR(100) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    state VARCHAR(100)
+);
+
+-- Flight
+CREATE TABLE flight (
+    flightID INT PRIMARY KEY IDENTITY(100,1),
+    airline NVARCHAR(100) NOT NULL,
+    weekdays VARCHAR(50),
+    restrictions VARCHAR(100)
+);
+
+-- Flight Leg
+CREATE TABLE flight_leg (
+    legno INT PRIMARY KEY,
+    scheduled_dep_time TIME,
+    scheduled_arr_time TIME,
+    departspoint NVARCHAR(100),
+    arrivespoint NVARCHAR(100),
+    flightID INT,
+    FOREIGN KEY (flightID) REFERENCES flight(flightID),
+	airportID INT,
+	FOREIGN KEY (airportID) REFERENCES airport(airportID)
+
+);
+
+-- Airplane Type
+CREATE TABLE airplane_type (
+    typename NVARCHAR(100) PRIMARY KEY,
+    company VARCHAR(100),
+    max_seats INT
+);
+
+-- Airplane
+CREATE TABLE airplane (
+    airplaneID INT PRIMARY KEY IDENTITY(1,1),
+    total_no_seats INT,
+    typename NVARCHAR(100),
+    FOREIGN KEY (typename) REFERENCES airplane_type(typename)
+);
+
+-- Leg Instance
+CREATE TABLE leg_instance (
+    leg_instance_id INT PRIMARY KEY IDENTITY(1,1),
+    number_of_available_seats INT,
+    arrival_time TIME,
+    departure_time TIME,
+    flight_leg_date DATE,
+    legno INT,
+    airplaneID INT,
+    FOREIGN KEY (legno) REFERENCES flight_leg(legno),
+    FOREIGN KEY (airplaneID) REFERENCES airplane(airplaneID)
+);
+
+-- Seat Reservation
+CREATE TABLE seat_reservation (
+    reservationID INT PRIMARY KEY IDENTITY(1,1),
+    customer_name NVARCHAR(100),
+    customer_phone VARCHAR(20),
+    leg_instance_id INT,
+    FOREIGN KEY (leg_instance_id) REFERENCES leg_instance(leg_instance_id)
+);
+
+-- Fare
+CREATE TABLE fare (
+    fareID INT PRIMARY KEY IDENTITY(1,1),
+    amount DECIMAL(10,2),
+    flightID INT,
+    FOREIGN KEY (flightID) REFERENCES flight(flightID)
+);
+
+
+
+INSERT INTO airport (airportname, city, state) VALUES
+('Muscat International', 'Muscat', 'Muscat'),
+('Dubai International', 'Dubai', 'Dubai'),
+('King Khalid Intl', 'Riyadh', 'Riyadh'),
+('Heathrow', 'London', 'England'),
+('JFK', 'New York', 'USA');
+
+
+INSERT INTO flight (airline, weekdays, restrictions) VALUES
+('Oman Air', 'Sun,Mon,Wed', 'None'),
+('Emirates', 'Daily', 'No pets'),
+('Qatar Airways', 'Tue,Thu', 'None'),
+('British Airways', 'Mon,Fri', 'None'),
+('American Airlines', 'Daily', 'Visa required');
+
+INSERT INTO flight_leg (legno, scheduled_dep_time, scheduled_arr_time, departspoint, arrivespoint, flightID) VALUES
+(1, '08:00', '10:00', 'Muscat', 'Dubai', 100),
+(2, '11:00', '13:00', 'Dubai', 'London', 101),
+(3, '09:00', '12:00', 'Riyadh', 'Muscat', 102),
+(4, '14:00', '18:00', 'London', 'New York', 103),
+(5, '16:00', '18:30', 'Muscat', 'Riyadh', 104);
+
+INSERT INTO airplane_type (typename, company, max_seats) VALUES
+('A320', 'Airbus', 180),
+('A330', 'Airbus', 250),
+('B737', 'Boeing', 160),
+('B787', 'Boeing', 290),
+('A350', 'Airbus', 320);
+
+
+INSERT INTO airplane (total_no_seats, typename) VALUES
+(180, 'A320'),
+(250, 'A330'),
+(160, 'B737'),
+(290, 'B787'),
+(320, 'A350');
+
+INSERT INTO leg_instance 
+(number_of_available_seats, arrival_time, departure_time, flight_leg_date, legno, airplaneID) 
+VALUES
+(150, '10:05', '08:00', '2025-01-10', 1, 1),
+(200, '13:10', '11:00', '2025-01-11', 2, 2),
+(140, '12:15', '09:00', '2025-01-12', 3, 3),
+(270, '18:20', '14:00', '2025-01-13', 4, 4),
+(300, '18:40', '16:00', '2025-01-14', 5, 5);
+
+
+
+INSERT INTO seat_reservation (customer_name, customer_phone, leg_instance_id) VALUES
+('Ahmed Ali', '91234567', 1),
+('Fatma Said', '92345678', 2),
+('Salim Khan', '93456789', 3),
+('Aisha Noor', '94567890', 4),
+('John Smith', '95678901', 5);
+
+
+INSERT INTO fare (amount, flightID) VALUES
+(120.00, 100),
+(350.50, 101),
+(180.00, 102),
+(550.75, 103),
+(210.00, 104);
+
+
+SELECT * FROM airport;
+SELECT * FROM flight;
+SELECT * FROM flight_leg;
+SELECT * FROM airplane_type;
+SELECT * FROM airplane;
+SELECT * FROM leg_instance;
+SELECT * FROM seat_reservation;
+SELECT * FROM fare;
+
